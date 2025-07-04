@@ -1,0 +1,50 @@
+# terraform/terraform.tfvars.example
+# Example configuration file for Reddit Sentiment Analyzer
+# Copy this file to terraform.tfvars and update with your values
+
+# AWS Configuration
+aws_region  = "us-east-1"
+environment = "dev"  # Options: dev, staging, prod
+
+# Project Configuration
+project_name      = "reddit-sentiment-analyzer"
+s3_bucket_prefix  = "reddit-sentiment-data"  # Will be made unique with random suffix
+
+# Reddit API Configuration
+# Get these from https://www.reddit.com/prefs/apps
+reddit_client_id     = "your_reddit_client_id_here"
+reddit_client_secret = "your_reddit_client_secret_here"
+reddit_user_agent    = "reddit-sentiment-analyzer/1.0 by YourUsername"
+
+# Lambda Configuration
+log_retention_days = 14  # CloudWatch log retention in days
+
+# Scheduling Configuration
+ingestion_schedule         = "rate(1 hour)"  # How often to run ingestion
+enable_scheduled_ingestion = true           # Set to false to disable auto-ingestion
+
+# API Gateway Configuration
+create_api_gateway = true  # Set to false if you don't need API Gateway
+
+# Monitoring Configuration
+enable_detailed_monitoring = false  # Set to true for production environments
+
+# Reddit Configuration
+default_subreddits = [
+  "technology",
+  "news",
+  "worldnews",
+  "politics",
+  "science"
+]
+posts_per_subreddit = 25  # Number of posts to fetch per subreddit (1-100)
+
+# DynamoDB Configuration
+dynamodb_point_in_time_recovery = false  # Set to true for production
+
+# Additional Tags (optional)
+additional_tags = {
+  Owner       = "YourName"
+  CostCenter  = "Engineering"
+  Purpose     = "Sentiment Analysis"
+}
